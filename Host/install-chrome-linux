@@ -1,0 +1,18 @@
+#!/bin/bash
+
+arc=`$(echo uname -m)`
+
+
+
+read -p "Enter Chrome extension ID: " id
+echo "{"name": "com.dlogic.native","description": "UFR","path": "ufr","type": "stdio","allowed_origins": ["chrome-extension:$id"]}" > data/Linux/com.dlogic.native.json
+
+if [ "$arc" = "x86_64" ]; then
+	mkdir -p /etc/opt/chrome/native-messaging-hosts
+	cp data/Linux/x86_64/ufr /etc/opt/chrome/native-messaging-hosts/ufr
+	cp data/Linux/com.dlogic.native.json /etc/opt/chrome/native-messaging-hosts/com.dlogic.native.json
+else
+	mkdir -p /etc/opt/chrome/native-messaging-hosts
+	cp data/Linux/x86/ufr /etc/opt/chrome/native-messaging-hosts/ufr
+	cp data/Linux/com.dlogic.native.json /etc/opt/chrome/native-messaging-hosts/com.dlogic.native.json
+fi
